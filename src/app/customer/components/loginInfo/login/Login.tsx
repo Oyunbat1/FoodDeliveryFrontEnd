@@ -11,6 +11,7 @@ interface LoginSectionProps {
   formErrors: InfoType;
   setFormValues: React.Dispatch<React.SetStateAction<InfoType>>;
   setFormErrors: React.Dispatch<React.SetStateAction<InfoType>>;
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
   nextStep: () => void;
   prevStep: () => void;
   currentStep: number;
@@ -24,6 +25,7 @@ const Login: React.FC<LoginSectionProps> = ({
   nextStep,
   prevStep,
   currentStep,
+  setIsLogin,
 }: LoginSectionProps) => {
   const OnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({
@@ -129,6 +131,7 @@ const Login: React.FC<LoginSectionProps> = ({
               <div className="] flex flex-col gap-2">
                 {" "}
                 <Button
+                  onChange={() => setIsLogin(true)}
                   className="transition-all duration-400  bg-gray-300 border text-white hover:bg-black "
                   type="submit"
                 >

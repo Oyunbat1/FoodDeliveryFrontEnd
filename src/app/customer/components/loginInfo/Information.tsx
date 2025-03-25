@@ -4,7 +4,11 @@ import EmailSection from "./email/Email";
 import Password from "./password/Password";
 import InfoType from "@/app/customer/types/index";
 import Login from "./login/Login";
-const Info: React.FC = () => {
+interface InfoProps {
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Info: React.FC<InfoProps> = ({ setIsLogin }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formValues, setFormValues] = useState<InfoType>({
     email: "",
@@ -84,6 +88,7 @@ const Info: React.FC = () => {
           nextStep={nextStep}
           currentStep={currentStep}
           prevStep={prevStep}
+          setIsLogin={setIsLogin}
         />
       )}
     </div>
