@@ -3,7 +3,6 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft } from "lucide-react";
 import InfoType from "@/app/customer/types/index";
 
 interface EmailSectionProps {
@@ -21,7 +20,6 @@ const EmailSection: React.FC<EmailSectionProps> = ({
   setFormValues,
   setFormErrors,
   nextStep,
-  currentStep,
 }: EmailSectionProps) => {
   const OnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({
@@ -29,6 +27,10 @@ const EmailSection: React.FC<EmailSectionProps> = ({
       [event.target.name]: event.target.value,
     }));
   };
+
+  console.log("form errors:", formErrors);
+  console.log("form values:", formValues);
+  console.log("next step:", formValues);
 
   const Handle = (event: React.FormEvent) => {
     event.preventDefault();
@@ -43,16 +45,26 @@ const EmailSection: React.FC<EmailSectionProps> = ({
     const emailRegexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!formValues.email) {
-      errors.email = "Please provide a valid email address.";
-    } else if (!emailRegexPattern.test(formValues.email)) {
-      errors.email = "Please provide a valid email address.";
+      setFormErrors((prev) => ({
+        ...prev,
+        email: "Please provide a valid email address.",
+      }));
+    } else {
+      setFormErrors((prev) => ({
+        ...prev,
+        email: "",
+      }));
+    }
+    if (!emailRegexPattern.test(formValues.email)) {
+      setFormErrors((prev) => ({
+        ...prev,
+        email: "Mайл бүтэц биш байна.",
+      }));
     }
 
     setFormErrors(errors);
 
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
+    if (errors.email) return;
     nextStep();
   };
 

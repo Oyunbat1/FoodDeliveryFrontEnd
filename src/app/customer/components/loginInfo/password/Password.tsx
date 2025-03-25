@@ -33,6 +33,10 @@ const Password: React.FC<PasswordSectionProps> = ({
     }));
   };
 
+  console.log("form errors:", formErrors);
+  console.log("form values:", formValues);
+  console.log("next step:", formValues);
+
   const Handle = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -44,18 +48,38 @@ const Password: React.FC<PasswordSectionProps> = ({
     };
 
     if (!formValues.password) {
-      errors.password = "Enter your password";
+      setFormErrors((prev) => ({
+        ...prev,
+        password: "Пасспортоо  оруулна уу",
+      }));
+    } else {
+      setFormErrors((prev) => ({
+        ...prev,
+        password: "",
+      }));
     }
     if (!formValues.confirmpassword) {
-      errors.confirmpassword = "Confirm your password";
-    } else if (formValues.password !== formValues.confirmpassword) {
-      errors.confirmpassword = "Passwords do not match";
+      setFormErrors((prev) => ({
+        ...prev,
+        confirmPassword: "Пасспортоо баталгаажуулна уу",
+      }));
+    } else {
+      setFormErrors((prev) => ({
+        ...prev,
+        confirmPassword: "",
+      }));
+    }
+    if (
+      formValues.password != formValues.confirmpassword &&
+      formValues.confirmpassword
+    ) {
+      setFormErrors((prev) => ({
+        ...prev,
+        confirmPassword: "Пасспорт таарахгүй байна.",
+      }));
     }
     setFormErrors(errors);
-
-    if (!formValues.password || !formValues.confirmpassword) {
-      return;
-    }
+    if (errors.password || errors.confirmpassword) return;
     nextStep();
   };
 

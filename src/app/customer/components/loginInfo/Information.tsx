@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import EmailSection from "./email/Email";
+import EmailSection from "./email/page";
 import Password from "./password/Password";
 import InfoType from "@/app/customer/types/index";
 import Login from "./login/Login";
@@ -16,6 +16,7 @@ const Info: React.FC<InfoProps> = ({ setIsLogin }) => {
     confirmpassword: "",
     showpassword: false,
   });
+  console.log("email of info:", formValues.email);
 
   const [formErrors, setFormErrors] = useState({
     email: "",
@@ -53,7 +54,7 @@ const Info: React.FC<InfoProps> = ({ setIsLogin }) => {
   }, []);
 
   const prevStep = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 0));
+    setCurrentStep((prev) => prev - 1);
   };
 
   return (

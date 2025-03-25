@@ -4,6 +4,7 @@ import Information from "./customer/components/loginInfo/Information";
 import HomePage from "./customer/components/homePage/HomePage";
 export default function Home() {
   const [isLogin, setIsLogin] = useState(false);
+  console.log("CLicked" + isLogin);
   return (
     <>
       <div>

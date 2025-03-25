@@ -131,7 +131,7 @@ const Login: React.FC<LoginSectionProps> = ({
               <div className="] flex flex-col gap-2">
                 {" "}
                 <Button
-                  onChange={() => setIsLogin(true)}
+                  onClick={() => setIsLogin(true)}
                   className="transition-all duration-400  bg-gray-300 border text-white hover:bg-black "
                   type="submit"
                 >
