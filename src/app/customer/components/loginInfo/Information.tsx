@@ -3,22 +3,21 @@ import React, { useEffect, useState } from "react";
 import EmailSection from "./email/Email";
 import Password from "./password/Password";
 import InfoType from "@/app/customer/types/index";
-
+import Login from "./login/Login";
 const Info: React.FC = () => {
-
   const [currentStep, setCurrentStep] = useState(0);
   const [formValues, setFormValues] = useState<InfoType>({
     email: "",
     password: "",
     confirmpassword: "",
+    showpassword: false,
   });
-
-  console.log(formValues)
 
   const [formErrors, setFormErrors] = useState({
     email: "",
     password: "",
     confirmpassword: "",
+    showpassword: false,
   });
 
   const nextStep = () => {
@@ -50,22 +49,43 @@ const Info: React.FC = () => {
   }, []);
 
   const prevStep = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 0)); 
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
   return (
     <div>
       {currentStep === 0 && (
         <EmailSection
-        formValues={formValues}
-        setFormValues={setFormValues}
-        formErrors={formErrors}
-        setFormErrors={setFormErrors}
-        nextStep={nextStep}
-        currentStep={currentStep}
+          formValues={formValues}
+          setFormValues={setFormValues}
+          formErrors={formErrors}
+          setFormErrors={setFormErrors}
+          nextStep={nextStep}
+          currentStep={currentStep}
         />
       )}
-      {currentStep === 1 && <Password />}
+      {currentStep === 1 && (
+        <Password
+          formValues={formValues}
+          setFormValues={setFormValues}
+          formErrors={formErrors}
+          setFormErrors={setFormErrors}
+          nextStep={nextStep}
+          currentStep={currentStep}
+          prevStep={prevStep}
+        />
+      )}
+      {currentStep === 2 && (
+        <Login
+          formValues={formValues}
+          setFormValues={setFormValues}
+          formErrors={formErrors}
+          setFormErrors={setFormErrors}
+          nextStep={nextStep}
+          currentStep={currentStep}
+          prevStep={prevStep}
+        />
+      )}
     </div>
   );
 };
