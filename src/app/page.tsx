@@ -1,9 +1,10 @@
-import Image from "next/image";
-
+import Information from "./customer/components/loginInfo/Information";
 export default function Home() {
   return (
-   <div>
-    aa
-   </div>
+    <>
+    <div>
+    <Information></Information>
+    </div>
+    </>
   );
 }
