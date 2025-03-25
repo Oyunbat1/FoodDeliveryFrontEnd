@@ -53,7 +53,6 @@ const EmailSection: React.FC<EmailSectionProps> = ({
     if (Object.keys(errors).length > 0) {
       return;
     }
-
     nextStep();
   };
 

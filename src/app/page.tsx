@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <>
       <div>
-        {isLogin && <Information setIsLogin={setIsLogin}></Information>}
-        {!isLogin && <HomePage></HomePage>}
+        {!isLogin && <Information setIsLogin={setIsLogin}></Information>}
+        {isLogin && <HomePage></HomePage>}
       </div>
     </>
   );
