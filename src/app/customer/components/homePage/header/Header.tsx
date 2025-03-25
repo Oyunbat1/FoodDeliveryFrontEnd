@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 function Header() {
   const router = useRouter();
   return (
-    <div className="fixed h-[60px] left-0 top-0 right-0 bg-black flex items-center justify-around gap-x-164">
+    <div className="fixed h-[60px] left-0 top-0 right-0 bg-black flex items-center justify-around gap-x-164 z-10">
       <div className="flex gap-2 items-center">
         <Image
           src={`/customer/logo.png`}
