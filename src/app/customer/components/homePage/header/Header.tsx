@@ -2,6 +2,12 @@ import React, { ChangeEvent } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 import { motion } from "framer-motion";
 import { ShoppingCart, User, MapPinHouse, ChevronRight, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -71,12 +77,22 @@ function Header() {
             )}
           </div>
         )}
-        <Button className=" h-[36px] w-[36px bg-white flex justify-center items-center rounded-full text-blackx ">
+        <Button className=" h-[36px] w-[36px bg-white flex justify-center items-center rounded-full text-black hover:bg-gray-200">
           <ShoppingCart></ShoppingCart>
         </Button>
-        <Button className="h-[36px] w-[36px] bg-red-600 rounded-full flex justify-center items-center">
-          <User></User>
-        </Button>
+        <Popover>
+          <PopoverTrigger className="bg-red-600 hover:bg-red-400 w-[36px] h-[36px] flex justify-center items-center rounded-full">
+            {" "}
+            <User className="text-white"></User>
+          </PopoverTrigger>
+          <PopoverContent className="w-[188px] h-[104px] flex flex-col items-center gap-2">
+            <h1>Test@gmail.com</h1>
+            <Button className="w-[80px] h-[36px] rounded-full bg-[#F4F4F5] text-black hover:bg-gray-200">
+              Sign out
+            </Button>
+          </PopoverContent>
+        </Popover>
+
         {/* <Button
           className=" transition-all duration-200 bg-white text-black text-[14px] font-[400]  w-[75px] h-[36px] rounded-full hover:bg-gray-200"
           onClick={() => router.push("/customer/components/loginInfo/email")}
