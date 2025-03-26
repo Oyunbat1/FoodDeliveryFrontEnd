@@ -1,5 +1,6 @@
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
+import {FacebookIcon , InstagramIcon} from "lucide-react"
 import {
   Carousel,
   CarouselContent,
@@ -44,11 +45,11 @@ function Footer() {
           <CarouselNext className="bg-gray-500 text-white" />
         </Carousel>
       </div>
-      <div className="h-[228px] bg-amber-700 w-[1264px]">
-        <div className="flex justify-around items-center h-full">
+      <div className="h-[228px] w-[1264px] relative">
+        <div className="flex justify-around items-center h-full ">
           {" "}
           <div>
-                  <div className="flex flex-col gap-2 items-center text-center">
+                  <div className="flex flex-col gap-2 items-center text-center  absolute top-0 left-0">
                     <Image
                       src={`/customer/logo.png`}
                       width={45}
@@ -64,21 +65,43 @@ function Footer() {
                     </div>
                   </div>
           </div>
-          <div>
-            <div>
-              <h1>NOMNOM</h1>
+          <div className="flex gap-40 absolute top-0">
+            <div className="text-white text-[16px]  flex flex-col gap-2">
+              <h1 className="text-[16px] text-gray-400 mb-[10px]">NOMNOM</h1>
               <p>Home</p>
-              <p></p>
-              <p></p>
+              <p>Contact us</p>
+              <p>Delivery zone</p>
             </div>
-            <div>
-            <h1>MENU</h1>
+            <div className="text-white  flex flex-col gap-2" >
+            <h1 className="text-[16px] text-gray-400 mb-[10px]">MENU</h1>
+            <p>Appetizers</p>
+            <p>Salads</p>
+            <p>PIzzas</p>
+            <p>Main dishes</p>
+            <p>Desserts</p>
             </div>
-            <div></div>
+            <div className="text-white flex flex-col gap-2">
+              <p>Side dish</p>
+              <p>Brunch</p>
+              <p>Desserts</p>
+              <p>Beverages</p>
+              <p>Fish & Sea foods</p>
+            </div>
 
           </div>
-          <div>c</div>
+          <div className="text-white  absolute top-0 right-0"><h1 className="text-[16px] text-gray-400 mb-[10px]">Follow us</h1>
+              <div className="flex gap-4">   <FacebookIcon></FacebookIcon>
+              <InstagramIcon></InstagramIcon>   </div>
+              </div>
         </div>
+      </div>
+      <div className="w-[1264px]  border-t-1 text-[14px] text-gray-400 ">
+      <div className="flex gap-40 mt-[20px]">
+        <p>Copy right 2024 @ Nomnom LLC</p>
+        <p>Privacy policy  </p>
+        <p>Terms and conditoin</p>
+        <p>Cookie policy</p>
+      </div>
       </div>
     </div>
   );
