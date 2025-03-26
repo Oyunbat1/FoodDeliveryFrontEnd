@@ -6,7 +6,7 @@ import Footer from "./footer/Footer";
 import Image from "next/image";
 function HomePage() {
   return (
-    <div className="bg-gray-500">
+    <div className="bg-gray-500 ">
       <Header></Header>
       <Image
         src={`/customer/section-1.png`}

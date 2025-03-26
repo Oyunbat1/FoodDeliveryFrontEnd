@@ -15,7 +15,7 @@ function Category() {
   );
   return (
     <div>
-      <div className="h-[176px] bg-gray-500 flex flex-col justify-center items-start  pl-[100px]">
+      <div className="h-[176px] w-full bg-gray-500 flex flex-col justify-center items-start  pl-[100px]">
         <h1 className="text-white text-[30px] mb-[20px] ">Categories</h1>
         <Carousel
           plugins={[plugin.current]}
@@ -23,9 +23,9 @@ function Category() {
             align: "start",
           }}
         >
-          <CarouselContent>
+          <CarouselContent className="w-[1600px]">
             {Array.from({ length: 10 }).map((_, index) => (
-              <CarouselItem key={index} className="basis-1/6">
+              <CarouselItem key={index} className="basis-1/8 ">
                 <div>
                   <Button className="h-[26px] w-[100px] rounded-full bg-white text-black">
                     Hello
