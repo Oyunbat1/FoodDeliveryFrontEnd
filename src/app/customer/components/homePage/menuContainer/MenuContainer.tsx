@@ -3,7 +3,6 @@ import CategoryItem from "./category/Category";
 import { FoodCategory } from "@/app/customer/types/foodCategoriesItems";
 
 function MenuContainer() {
-  
   const foodCategories: FoodCategory[] = [
     {
       id: 1,
@@ -17,8 +16,6 @@ function MenuContainer() {
           overview:
             "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
         },
-  
-       
       ],
     },
     {
@@ -26,7 +23,7 @@ function MenuContainer() {
       categoryName: "Salads",
       foodCategoriesItems: [
         {
-          id:1 ,
+          id: 1,
           foodTitle: "Sunshine Stackers",
           img: `/customer/categoryItems/sunshine-stacker.png`,
           price: " $12.99",
@@ -48,16 +45,7 @@ function MenuContainer() {
           price: " $12.99",
           overview:
             "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
-        }, {
-          id: 4,
-          foodTitle: "Stackers",
-          img: `/customer/categoryItems/Finger-Food.png`,
-          price: " $12.99",
-          overview:
-            "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
         },
-        
-
       ],
     },
     {
@@ -72,7 +60,6 @@ function MenuContainer() {
           overview:
             "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
         },
-        
       ],
     },
   ];

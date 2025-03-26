@@ -4,13 +4,13 @@ import { Plus } from "lucide-react";
 import { FoodCategory } from "@/app/customer/types/foodCategoriesItems";
 
 type CategoryItemProps = {
-  foodCategory: FoodCategory; 
+  foodCategory: FoodCategory;
 };
 
 function CategoryItem({ foodCategory }: CategoryItemProps) {
   return (
     <div>
-      <div className="grid grid-cols-5 gap-110 w-full">
+      <div className="grid grid-cols-3 gap-20 w-full">
         {foodCategory.foodCategoriesItems.map((categoryItem) => (
           <div
             key={categoryItem.id}

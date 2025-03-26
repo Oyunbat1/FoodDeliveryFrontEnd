@@ -23,7 +23,7 @@ function Category() {
             align: "start",
           }}
         >
-          <CarouselContent className="w-[1600px]">
+          <CarouselContent className="w-full">
             {Array.from({ length: 10 }).map((_, index) => (
               <CarouselItem key={index} className="basis-1/8 ">
                 <div>
