@@ -7,12 +7,50 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
 import { Button } from "@/components/ui/button";
+import { Pizza } from "lucide-react";
+
+
 function Category() {
+
+  const categoryData = [{
+    id: 1,
+    foodName: "Appeizers"
+  },{
+    id:2,
+    foodName: "Salads"
+  },{
+    id:3,
+    foodName: "Pizzas"
+  },
+  {
+    id: 4,
+    foodName: "Lunch favorites"
+  },{
+    id:5,
+    foodName: "Main dishes"
+  },{
+    id:6,
+    foodName: "Fish & Sea foods"
+  },
+  {
+    id: 7,
+    foodName: "Side dish"
+  },{
+    id:8,
+    foodName: "Brunch"
+  },{
+    id:9,
+    foodName: "Desserts"
+  },{
+    id:10,
+    foodName: "Beverages"
+  }]
+
   const plugin = React.useRef(
     Autoplay({ delay: 1400, stopOnInteraction: true })
   );
+
   return (
     <div>
       <div className="h-[176px] w-full bg-gray-500 flex flex-col justify-center items-start  pl-[100px]">
@@ -23,16 +61,15 @@ function Category() {
             align: "start",
           }}
         >
-          <CarouselContent className="w-full">
-            {Array.from({ length: 10 }).map((_, index) => (
-              <CarouselItem key={index} className="basis-1/8 ">
-                <div>
-                  <Button className="h-[26px] w-[100px] rounded-full bg-white text-black">
-                    Hello
-                  </Button>
-                </div>
-              </CarouselItem>
-            ))}
+          <CarouselContent className="w-full flex gap-2">
+          {categoryData.map((category) => (
+                    <CarouselItem className="basis-1/8 ">
+   <Button key={category.id} className="h-[26px] rounded-full border bg-white text-black  hover:bg-gray-500 hover:text-white hover:border">
+                        {category.foodName}
+                    </Button>
+                    </CarouselItem>
+                   
+                  ))}
           </CarouselContent>
           <CarouselPrevious className="bg-gray-500 text-white" />
           <CarouselNext className="bg-gray-500 text-white" />
