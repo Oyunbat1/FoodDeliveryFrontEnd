@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Plus, X } from "lucide-react";
+import { Plus, X  , Minus} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FoodCategory } from "@/app/customer/types/foodCategoriesItems";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -16,6 +16,23 @@ type CategoryItemProps = {
 };
 
 function CategoryItem({ foodCategory }: CategoryItemProps) {
+
+  const [count , setCount] = useState(1);
+
+  const HandleCountPlus = () => {
+    const plus = count + 1;
+    setCount(plus)
+  }
+  const HandleCountMinus = () => {
+    const minus = count - 1;
+    if(minus >= 0){
+      setCount(minus)
+    }{
+      return
+    }
+   
+  }
+
   return (
     <div>
       <div className="grid grid-cols-3 gap-20 w-full ">
@@ -29,7 +46,7 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
               alt="images"
               width={365.33}
               height={210}
-              className="w-[365.33px] h-[210px] rounded-md object-cover"
+              className="w-[365.33px] h-[230px] rounded-md object-cover"
             />
             <AlertDialog>
               <AlertDialogTrigger asChild>
@@ -75,7 +92,11 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
                         <p className="text-[12px]">Total price</p>
                         <h1 className="font-bold">{categoryItem.price}</h1>
                       </div>
-                      <div>aa</div>
+                      <div className="flex justify-center items-center gap-2">
+                        <Button  onClick={() => HandleCountMinus()} className="rounded-full fixed right-[68px] h-[34px] w-[34px] bg-transparent border hover:bg-gray-300 hover:border-gray-500"><Minus className="text-black "></Minus></Button>
+                       <h1 className="fixed right-[50px]">{count}</h1>
+                        <Button  onClick={() => HandleCountPlus()} className="rounded-full  fixed right-2 h-[34px] w-[34px]"><Plus></Plus></Button>
+                      </div>
                     </div>
                     <div>
                       <Button className="w-full h-[34px] rounded-full">
