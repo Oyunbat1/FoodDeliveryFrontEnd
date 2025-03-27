@@ -10,13 +10,14 @@ import {
 
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 import { motion } from "framer-motion";
 import { ShoppingCart, User, MapPinHouse, ChevronRight, X } from "lucide-react";
@@ -26,41 +27,16 @@ function Header() {
   const router = useRouter();
   const [toggleSearch, setToggleSearch] = useState(false);
   const [toggleInSearch, setToggleInSearch] = useState(false);
-      
+
   const HandleToggleSeach = () => {
     setToggleInSearch(false);
     setToggleSearch(false);
   };
-  const deliveryWithToggle =()=>{
+  const deliveryWithToggle = () => {
     setToggleSearch(true);
-    <Dialog>
-    <DialogTrigger asChild>
-      <Button variant="outline">Edit Profile</Button>
-    </DialogTrigger>
-    <DialogContent className="sm:max-w-[425px]">
-      <DialogHeader>
-        <DialogTitle>Edit profile</DialogTitle>
-        <DialogDescription>
-          Make changes to your profile here. Click save when you're done.
-        </DialogDescription>
-      </DialogHeader>
-      <div className="grid gap-4 py-4">
-        <div className="grid grid-cols-4 items-center gap-4">
-
-          <Input id="username" value="@peduarte" className="col-span-3" />
-        </div>
-      </div>
-      <DialogFooter>
-        <Button type="submit">Save changes</Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
-  }
+  };
   return (
-    <motion.div
-
-      className="fixed h-[80px] left-0 top-0 right-0 bg-black flex items-center justify-around gap-x-164 z-10"
-    >
+    <motion.div className="fixed h-[80px] left-0 top-0 right-0 bg-black flex items-center justify-around gap-x-164 z-10">
       <div className="flex gap-2 items-center">
         <Image
           src={`/customer/logo.png`}
@@ -78,20 +54,50 @@ function Header() {
       </div>
       <div className="flex gap-2">
         {!toggleSearch && (
-          <div
-            onClick={() => {
-              deliveryWithToggle()
-            }}
-            className="border border-white flex items-center  rounded-full px-4 cursor-pointer"
-          >
-            <MapPinHouse className="text-red-600 "></MapPinHouse>
-            <label className="text-red-600 pl-2">Delivery address:</label>
-            <Input
-              className="w-[110px] h-[36px] text-white outline-0 border-0  focus-visible:ring-0 placeholder:text-gray-400"
-              placeholder="Add Location"
-            ></Input>{" "}
-            <ChevronRight className="text-gray-400"></ChevronRight>
-          </div>
+          <Dialog>
+            <DialogTrigger
+              asChild
+              className="border border-white flex items-center  rounded-full px-4 cursor-pointer"
+            >
+              <div className="border border-white flex items-center rounded-full px-4 cursor-pointer">
+                <MapPinHouse className="text-red-600" />
+                <label className="text-red-600 pl-2">Delivery address:</label>
+                <Input
+                  className="w-[110px] h-[36px] text-white outline-0 border-0 focus-visible:ring-0 placeholder:text-gray-400"
+                  placeholder="Add Location"
+                />
+                <ChevronRight className="text-gray-400" />
+              </div>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Delivery Address</DialogTitle>
+                <DialogDescription className="mt-8">
+                  <div className="w-[432px] h-[112px] border hover:border-gray-400">
+                    <textarea
+                      className="w-full h-full resize-none p-2 outline-none focus-visible:ring-0"
+                      placeholder="Enter your text here..."
+                    ></textarea>
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter className="mt-6 mr-6 flex gap-4">
+                <DialogClose asChild>
+                  <Button type="button" variant="secondary">
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <Button
+                  onClick={() => {
+                    setToggleSearch(true);
+                  }}
+                  type="submit"
+                >
+                  Deliver here
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         )}
         {toggleSearch && (
           <div className=" w-[318.63px] border border-white flex items-center gap-2 rounded-full px-4">
