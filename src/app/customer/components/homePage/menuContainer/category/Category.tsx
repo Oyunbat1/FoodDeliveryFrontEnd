@@ -55,7 +55,7 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
             <Dialog
               open={isOpen}
               onOpenChange={(open) => {
-              setIsOpen(open);
+                setIsOpen(open);
                 if (!open) clearFunction();
               }}
             >
@@ -97,17 +97,17 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
                         <p className="text-[12px]">Total price</p>
                         <h1 className="font-bold">{categoryItem.price}</h1>
                       </div>
-                      <div className="flex justify-center items-center gap-2">
+                      <div className="flex justify-center items-center gap-2 ">
                         <Button
                           onClick={() => HandleCountMinus()}
-                          className="rounded-full fixed right-[68px] h-[34px] w-[34px] bg-transparent border hover:bg-gray-300 hover:border-gray-500"
+                          className="rounded-full fixed right-[78px] h-[34px] w-[34px] bg-transparent border hover:bg-gray-300 hover:border-gray-500"
                         >
                           <Minus className="text-black "></Minus>
                         </Button>
-                        <h1 className="fixed right-[50px]">{count}</h1>
+                        <h1 className="fixed right-[60px]">{count}</h1>
                         <Button
                           onClick={() => HandleCountPlus()}
-                          className="rounded-full  fixed right-2 h-[34px] w-[34px]"
+                          className="rounded-full  fixed right-3 h-[34px] w-[34px]"
                         >
                           <Plus></Plus>
                         </Button>
