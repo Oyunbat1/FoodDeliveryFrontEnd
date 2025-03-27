@@ -8,6 +8,16 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 import { motion } from "framer-motion";
 import { ShoppingCart, User, MapPinHouse, ChevronRight, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -16,17 +26,39 @@ function Header() {
   const router = useRouter();
   const [toggleSearch, setToggleSearch] = useState(false);
   const [toggleInSearch, setToggleInSearch] = useState(false);
-
+      
   const HandleToggleSeach = () => {
     setToggleInSearch(false);
     setToggleSearch(false);
   };
+  const deliveryWithToggle =()=>{
+    setToggleSearch(true);
+    <Dialog>
+    <DialogTrigger asChild>
+      <Button variant="outline">Edit Profile</Button>
+    </DialogTrigger>
+    <DialogContent className="sm:max-w-[425px]">
+      <DialogHeader>
+        <DialogTitle>Edit profile</DialogTitle>
+        <DialogDescription>
+          Make changes to your profile here. Click save when you're done.
+        </DialogDescription>
+      </DialogHeader>
+      <div className="grid gap-4 py-4">
+        <div className="grid grid-cols-4 items-center gap-4">
 
+          <Input id="username" value="@peduarte" className="col-span-3" />
+        </div>
+      </div>
+      <DialogFooter>
+        <Button type="submit">Save changes</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+  }
   return (
     <motion.div
-      // initial={{ opacity: 0, y: 100 }}
-      // transition={{ duration: 100 }}
-      // animate={{ opacity: 1, y: 0 }}
+
       className="fixed h-[80px] left-0 top-0 right-0 bg-black flex items-center justify-around gap-x-164 z-10"
     >
       <div className="flex gap-2 items-center">
@@ -48,7 +80,7 @@ function Header() {
         {!toggleSearch && (
           <div
             onClick={() => {
-              setToggleSearch(true);
+              deliveryWithToggle()
             }}
             className="border border-white flex items-center  rounded-full px-4 cursor-pointer"
           >
