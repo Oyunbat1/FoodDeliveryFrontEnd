@@ -1,44 +1,42 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { Plus, X, Minus } from "lucide-react";
+import { Plus, X  , Minus} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FoodCategory } from "@/app/customer/types/foodCategoriesItems";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger,
+  AlertDialogTitle,
+  AlertDialogCancel,
+} from "@/components/ui/alert-dialog";
 type CategoryItemProps = {
   foodCategory: FoodCategory;
 };
 
 function CategoryItem({ foodCategory }: CategoryItemProps) {
-  const [count, setCount] = useState(1);
-  const [isOpen, setIsOpen] = useState(false);
 
-  const clearFunction = () => {
-    const zero = 0;
+  const [count , setCount] = useState(1);
+
+  const  clearFunction =()=> {
+    const zero  = 0;
     setCount(zero);
-  };
+  }
 
   const HandleCountPlus = () => {
     const plus = count + 1;
-    setCount(plus);
-  };
+    setCount(plus)
+  }
   const HandleCountMinus = () => {
     const minus = count - 1;
-    if (minus >= 0) {
-      setCount(minus);
+    if(minus >= 0){
+      setCount(minus)
+    }{
+      return
     }
-    {
-      return;
-    }
-  };
+   
+  }
 
   return (
     <div>
@@ -55,28 +53,20 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
               height={210}
               className="w-[365.33px] h-[230px] rounded-md object-cover"
             />
-            <Dialog
-              open={isOpen}
-              onOpenChange={(open) => {
-              setIsOpen(open);
-                if (!open) clearFunction();
-              }}
-            >
-              <DialogTrigger asChild>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
                 <Button
-                  onClick={() => setIsOpen(true)}
                   variant="outline"
                   className="w-[40px] h-[40px] bg-white rounded-full absolute top-46 right-10 flex items-center justify-around"
                 >
                   <Plus className="text-red-600"></Plus>
                 </Button>
-              </DialogTrigger>
-
-              <DialogContent className="w-[826px] h-[272px] grid grid-cols-2">
+              </AlertDialogTrigger>
+              <AlertDialogContent className="w-[826px] h-[272px] grid grid-cols-2 ">
                 <div>
-                  <DialogTitle>
+                  <AlertDialogTitle>
                     <VisuallyHidden>Dialog Title</VisuallyHidden>
-                  </DialogTitle>
+                  </AlertDialogTitle>
                   <Image
                     src={`${categoryItem.img}`}
                     alt="images"
@@ -86,7 +76,12 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
                   />
                 </div>
                 <div className=" flex flex-col justify-between">
-                  <div className="mt-[10px]">
+                  <div>
+                    <div className="flex justify-end">
+                      <AlertDialogCancel onClick={()=> clearFunction()} className="w-[36px] rounded-full h-[36px]">
+                        <X></X>
+                      </AlertDialogCancel>
+                    </div>
                     <h1 className="text-[20px] font-[600] text-red-600">
                       {categoryItem.foodTitle}
                     </h1>
@@ -101,19 +96,9 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
                         <h1 className="font-bold">{categoryItem.price}</h1>
                       </div>
                       <div className="flex justify-center items-center gap-2">
-                        <Button
-                          onClick={() => HandleCountMinus()}
-                          className="rounded-full fixed right-[68px] h-[34px] w-[34px] bg-transparent border hover:bg-gray-300 hover:border-gray-500"
-                        >
-                          <Minus className="text-black "></Minus>
-                        </Button>
-                        <h1 className="fixed right-[50px]">{count}</h1>
-                        <Button
-                          onClick={() => HandleCountPlus()}
-                          className="rounded-full  fixed right-2 h-[34px] w-[34px]"
-                        >
-                          <Plus></Plus>
-                        </Button>
+                        <Button  onClick={() => HandleCountMinus()} className="rounded-full fixed right-[68px] h-[34px] w-[34px] bg-transparent border hover:bg-gray-300 hover:border-gray-500"><Minus className="text-black "></Minus></Button>
+                       <h1 className="fixed right-[50px]">{count}</h1>
+                        <Button  onClick={() => HandleCountPlus()} className="rounded-full  fixed right-2 h-[34px] w-[34px]"><Plus></Plus></Button>
                       </div>
                     </div>
                     <div>
@@ -123,8 +108,8 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
                     </div>
                   </div>
                 </div>
-              </DialogContent>
-            </Dialog>
+              </AlertDialogContent>
+            </AlertDialog>
             <div className="flex justify-between items-center w-full px-4 mt-4">
               <h1 className="text-red-600 text-[24px] font-[600]">
                 {categoryItem.foodTitle}
