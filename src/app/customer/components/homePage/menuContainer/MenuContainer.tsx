@@ -9,7 +9,7 @@ function MenuContainer() {
       categoryName: "Appetizer",
       foodCategoriesItems: [
         {
-          id: 1,
+          id: 101,
           foodTitle: "Finger Food",
           img: `/customer/categoryItems/Cranberry-pie.png`,
           price: " $12.99",
@@ -23,15 +23,15 @@ function MenuContainer() {
       categoryName: "Salads",
       foodCategoriesItems: [
         {
-          id: 1,
+          id: 102,
           foodTitle: "Sunshine Stackers",
           img: `/customer/categoryItems/sunshine-stacker.png`,
-          price: " $12.99",
+          price: " $13.99",
           overview:
             "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
         },
         {
-          id: 2,
+          id: 103,
           foodTitle: " Brie Bites",
           img: `/customer/categoryItems/Finger-Food.png`,
           price: " $12.99",
@@ -39,7 +39,7 @@ function MenuContainer() {
             "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
         },
         {
-          id: 3,
+          id: 104,
           foodTitle: " Bites",
           img: `/customer/categoryItems/Finger-Food.png`,
           price: " $12.99",
@@ -53,7 +53,7 @@ function MenuContainer() {
       categoryName: "Lunch Favorites",
       foodCategoriesItems: [
         {
-          id: 1,
+          id: 105,
           foodTitle: "Sunshine Stackers",
           img: `/customer/categoryItems/sunshine-stacker.png`,
           price: " $12.99",

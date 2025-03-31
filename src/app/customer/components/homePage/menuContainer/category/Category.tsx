@@ -17,23 +17,29 @@ type CategoryItemProps = {
 function CategoryItem({ foodCategory }: CategoryItemProps) {
   const [count, setCount] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
+  const [price, setPrice] = useState(0);
 
   const clearFunction = () => {
-    const zero = 0;
+    const zero = 1;
     setCount(zero);
+    setPrice(0);
+  };
+  const HandleCountPlus = (el) => {
+    console.log(el);
+    const price = el.replace("$", "").trim();
+    const priceNumber = parseFloat(price);
+    const newCount = count + 1;
+    setCount(newCount);
+    setPrice(priceNumber * newCount);
   };
 
-  const HandleCountPlus = () => {
-    const plus = count + 1;
-    setCount(plus);
-  };
-  const HandleCountMinus = () => {
-    const minus = count - 1;
-    if (minus >= 0) {
-      setCount(minus);
-    }
-    {
-      return;
+  const HandleCountMinus = (el) => {
+    if (count > 1) {
+      const price = el.replace("$", "").trim();
+      const priceNumber = parseFloat(price);
+      const newCount = count - 1;
+      setCount(newCount);
+      setPrice(priceNumber * newCount);
     }
   };
 
@@ -95,18 +101,18 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
                     <div className="flex justify-between">
                       <div className="flex flex-col ">
                         <p className="text-[12px]">Total price</p>
-                        <h1 className="font-bold">{categoryItem.price}</h1>
+                        <h1 className="font-bold">${price}</h1>
                       </div>
                       <div className="flex justify-center items-center gap-2 ">
                         <Button
-                          onClick={() => HandleCountMinus()}
+                          onClick={() => HandleCountMinus(categoryItem.price)}
                           className="rounded-full fixed right-[78px] h-[34px] w-[34px] bg-transparent border hover:bg-gray-300 hover:border-gray-500"
                         >
                           <Minus className="text-black "></Minus>
                         </Button>
                         <h1 className="fixed right-[60px]">{count}</h1>
                         <Button
-                          onClick={() => HandleCountPlus()}
+                          onClick={() => HandleCountPlus(categoryItem.price)}
                           className="rounded-full  fixed right-3 h-[34px] w-[34px]"
                         >
                           <Plus></Plus>
