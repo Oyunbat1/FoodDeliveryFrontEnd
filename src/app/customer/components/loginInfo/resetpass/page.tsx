@@ -29,7 +29,7 @@ const ResetPass: React.FC<ResetSectionProps> = ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
-  };
+  };  
 
   const Handle = (event: React.FormEvent) => {
     event.preventDefault();

@@ -28,10 +28,6 @@ const EmailSection: React.FC<EmailSectionProps> = ({
     }));
   };
 
-  console.log("form errors:", formErrors);
-  console.log("form values:", formValues);
-  console.log("next step:", formValues);
-
   const Handle = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -45,23 +41,10 @@ const EmailSection: React.FC<EmailSectionProps> = ({
     const emailRegexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!formValues.email) {
-      setFormErrors((prev) => ({
-        ...prev,
-        email: "Please provide a valid email address.",
-      }));
-    } else {
-      setFormErrors((prev) => ({
-        ...prev,
-        email: "",
-      }));
+      errors.email = "Майл хаягаа оруулна уу";
+    } else if (!emailRegexPattern.test(formValues.email)) {
+      errors.email = "Майл хаяг буруу байна";
     }
-    if (!emailRegexPattern.test(formValues.email)) {
-      setFormErrors((prev) => ({
-        ...prev,
-        email: "Mайл бүтэц биш байна.",
-      }));
-    }
-
     setFormErrors(errors);
 
     if (errors.email) return;
@@ -99,7 +82,7 @@ const EmailSection: React.FC<EmailSectionProps> = ({
             <div className="mt-[20px] flex flex-col gap-2">
               {" "}
               <Button
-                onClick={nextStep}
+                onClick={() => {}}
                 className="transition-all duration-400  bg-gray-300 border text-white hover:bg-black "
                 type="submit"
               >

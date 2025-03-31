@@ -44,20 +44,23 @@ const Login: React.FC<LoginSectionProps> = ({
     };
 
     const emailRegexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!formValues.email) {
-      errors.email = "Please provide a valid email address.";
+      errors.email = "Email is required";
     } else if (!emailRegexPattern.test(formValues.email)) {
-      errors.email = "Please provide a valid email address.";
+      errors.email = "Email is invalid";
     }
     if (!formValues.password) {
-      errors.password = "Enter your password";
+      errors.password = "Password is required";
     }
 
     setFormErrors(errors);
 
-    if (!formValues.password || !formValues.email) {
+    if (errors.password || errors.email) {
       return;
     }
+    setIsLogin(true);
+    nextStep();
   };
 
   return (

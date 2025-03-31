@@ -9,14 +9,13 @@ interface InfoProps {
 }
 
 const Info: React.FC<InfoProps> = ({ setIsLogin }) => {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(2);
   const [formValues, setFormValues] = useState<InfoType>({
     email: "",
     password: "",
     confirmpassword: "",
     showpassword: false,
   });
-  console.log("email of info:", formValues.email);
 
   const [formErrors, setFormErrors] = useState({
     email: "",
@@ -26,33 +25,8 @@ const Info: React.FC<InfoProps> = ({ setIsLogin }) => {
   });
 
   const nextStep = () => {
-    if (currentStep === 2) {
-      window.localStorage.removeItem("food-delivery");
-    } else {
-      window.localStorage.setItem(
-        "food-delivery",
-        JSON.stringify({ formValues, currentStep: currentStep + 1 })
-      );
-    }
     setCurrentStep((prev) => prev + 1);
   };
-
-  useEffect(() => {
-    const savedData = window.localStorage.getItem("food-delivery");
-
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        if (parsedData?.formValues && parsedData?.currentStep !== undefined) {
-          setFormValues(parsedData.formValues);
-          setCurrentStep(parsedData.currentStep);
-        }
-      } catch (error) {
-        console.error("Error parsing local storage data:", error);
-      }
-    }
-  }, []);
-
   const prevStep = () => {
     setCurrentStep((prev) => prev - 1);
   };

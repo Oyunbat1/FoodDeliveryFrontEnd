@@ -33,10 +33,6 @@ const Password: React.FC<PasswordSectionProps> = ({
     }));
   };
 
-  console.log("form errors:", formErrors);
-  console.log("form values:", formValues);
-  console.log("next step:", formValues);
-
   const Handle = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -47,38 +43,24 @@ const Password: React.FC<PasswordSectionProps> = ({
       showpassword: false,
     };
 
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,}$/;
+
     if (!formValues.password) {
-      setFormErrors((prev) => ({
-        ...prev,
-        password: "Пасспортоо  оруулна уу",
-      }));
-    } else {
-      setFormErrors((prev) => ({
-        ...prev,
-        password: "",
-      }));
+      errors.password = "Та нууц үгээ оруулна уу.";
+    } else if (formValues.password.length < 8) {
+      errors.password = "Нууц үг 8-аас дээш тэмдэгттэй байх ёстой.";
+    } else if (!passwordRegex.test(formValues.password)) {
+      errors.password = "Нууц үг нь том, жижиг үсэг, тоо агуулсан байх ёстой.";
     }
     if (!formValues.confirmpassword) {
-      setFormErrors((prev) => ({
-        ...prev,
-        confirmPassword: "Пасспортоо баталгаажуулна уу",
-      }));
-    } else {
-      setFormErrors((prev) => ({
-        ...prev,
-        confirmPassword: "",
-      }));
+      errors.confirmpassword = "Та нууц үгээ дахин оруулна уу.";
+    } else if (formValues.password != formValues.confirmpassword) {
+      errors.confirmpassword = "Пасспорт таарахгүй байна.";
     }
-    if (
-      formValues.password != formValues.confirmpassword &&
-      formValues.confirmpassword
-    ) {
-      setFormErrors((prev) => ({
-        ...prev,
-        confirmPassword: "Пасспорт таарахгүй байна.",
-      }));
-    }
+
     setFormErrors(errors);
+
     if (errors.password || errors.confirmpassword) return;
     nextStep();
   };
