@@ -141,11 +141,11 @@ function Header() {
           <SheetContent className="bg-gray-500">
             <SheetHeader>
               <SheetTitle className="flex items-center gap-2">
-                {" "}
                 <ShoppingCart className="text-white"></ShoppingCart>
-                <h1 className="text-white"> Order detail</h1>
+                <span className="text-white font-semibold">Order detail</span>
               </SheetTitle>
-              <SheetDescription>
+
+              <div>
                 <Tabs defaultValue="order" className="w-[360px]">
                   <TabsList className="grid w-full grid-cols-2 rounded-full mt-2">
                     <TabsTrigger
@@ -173,7 +173,7 @@ function Header() {
                           Add food
                         </Button>
                       </div>
-                      <div className="w-[350px] h-[176px] bg-white rounded-md mt-[10px] p-[20px] flex flex-col gap-2">
+                      <div className="w-[350px] h-[184px] bg-white rounded-md mt-[4px] p-[20px] flex flex-col gap-2">
                         <div className="text-black font-bold">Payment info</div>
                         <div className="flex flex-col">
                           <div className="flex justify-between">
@@ -194,7 +194,7 @@ function Header() {
                           <Dialog>
                             <DialogTrigger asChild>
                               <Button
-                                className="bg-red-400 rounded-full text-white mt-2"
+                                className="bg-red-400 rounded-full text-white mt-1"
                                 variant="outline"
                               >
                                 Checkout
@@ -299,7 +299,7 @@ function Header() {
                     </div>
                   </TabsContent>
                 </Tabs>
-              </SheetDescription>
+              </div>
             </SheetHeader>
           </SheetContent>
         </Sheet>

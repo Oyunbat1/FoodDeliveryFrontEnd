@@ -24,7 +24,7 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
     setCount(zero);
     setPrice(0);
   };
-  const HandleCountPlus = (el) => {
+  const HandleCountPlus = (el: any) => {
     console.log(el);
     const price = el.replace("$", "").trim();
     const priceNumber = parseFloat(price);
@@ -33,7 +33,7 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
     setPrice(priceNumber * newCount);
   };
 
-  const HandleCountMinus = (el) => {
+  const HandleCountMinus = (el: any) => {
     if (count > 1) {
       const price = el.replace("$", "").trim();
       const priceNumber = parseFloat(price);
