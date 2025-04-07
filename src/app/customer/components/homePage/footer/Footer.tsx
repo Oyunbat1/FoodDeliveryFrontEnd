@@ -1,6 +1,6 @@
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
-import {FacebookIcon , InstagramIcon} from "lucide-react"
+import { FacebookIcon, InstagramIcon } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -49,21 +49,21 @@ function Footer() {
         <div className="flex justify-around items-center h-full ">
           {" "}
           <div>
-                  <div className="flex flex-col gap-2 items-center text-center  absolute top-0 left-0">
-                    <Image
-                      src={`/customer/logo.png`}
-                      width={45}
-                      height={20}
-                      alt="logo"
-                      className="h-[37.29px] w-[46px]"
-                    ></Image>
-                    <div className="text-white">
-                      <h1 className="text-[20px] font-[600]">
-                        Nom <span className="text-red-600">Nom</span>
-                      </h1>
-                      <p className="text-[12px] font-[400]">Swift delivery</p>
-                    </div>
-                  </div>
+            <div className="flex flex-col gap-2 items-center text-center  absolute top-0 left-0">
+              <Image
+                src={`/customer/logo.png`}
+                width={45}
+                height={20}
+                alt="logo"
+                className="h-[37.29px] w-[46px]"
+              ></Image>
+              <div className="text-white">
+                <h1 className="text-[20px] font-[600]">
+                  Nom <span className="text-red-600">Nom</span>
+                </h1>
+                <p className="text-[12px] font-[400]">Swift delivery</p>
+              </div>
+            </div>
           </div>
           <div className="flex gap-40 absolute top-0">
             <div className="text-white text-[16px]  flex flex-col gap-2">
@@ -72,13 +72,13 @@ function Footer() {
               <p>Contact us</p>
               <p>Delivery zone</p>
             </div>
-            <div className="text-white  flex flex-col gap-2" >
-            <h1 className="text-[16px] text-gray-400 mb-[10px]">MENU</h1>
-            <p>Appetizers</p>
-            <p>Salads</p>
-            <p>PIzzas</p>
-            <p>Main dishes</p>
-            <p>Desserts</p>
+            <div className="text-white  flex flex-col gap-2">
+              <h1 className="text-[16px] text-gray-400 mb-[10px]">MENU</h1>
+              <p>Appetizers</p>
+              <p>Salads</p>
+              <p>PIzzas</p>
+              <p>Main dishes</p>
+              <p>Desserts</p>
             </div>
             <div className="text-white flex flex-col gap-2">
               <p>Side dish</p>
@@ -87,21 +87,24 @@ function Footer() {
               <p>Beverages</p>
               <p>Fish & Sea foods</p>
             </div>
-
           </div>
-          <div className="text-white  absolute top-0 right-0"><h1 className="text-[16px] text-gray-400 mb-[10px]">Follow us</h1>
-              <div className="flex gap-4">   <FacebookIcon></FacebookIcon>
-              <InstagramIcon></InstagramIcon>   </div>
-              </div>
+          <div className="text-white  absolute top-0 right-0">
+            <h1 className="text-[16px] text-gray-400 mb-[10px]">Follow us</h1>
+            <div className="flex gap-4">
+              {" "}
+              <FacebookIcon></FacebookIcon>
+              <InstagramIcon></InstagramIcon>{" "}
+            </div>
+          </div>
         </div>
       </div>
       <div className="w-[1264px]  border-t-1 text-[14px] text-gray-400 ">
-      <div className="flex gap-40 mt-[20px]">
-        <p>Copy right 2024 @ Nomnom LLC</p>
-        <p>Privacy policy  </p>
-        <p>Terms and conditoin</p>
-        <p>Cookie policy</p>
-      </div>
+        <div className="flex gap-40 mt-[20px]">
+          <p>Copy right 2024 @ Nomnom LLC</p>
+          <p>Privacy policy </p>
+          <p>Terms and conditoin</p>
+          <p>Cookie policy</p>
+        </div>
       </div>
     </div>
   );
