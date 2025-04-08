@@ -1,83 +1,18 @@
 import React from "react";
 import CategoryItem from "./category/Category";
 import { FoodCategory } from "@/app/customer/types/foodCategoriesItems";
+import BASE_URL from "@/constants";
 
 function MenuContainer() {
-  const foodCategories: FoodCategory[] = [
-    {
-      id: 1,
-      categoryName: "Appetizer",
-      foodCategoriesItems: [
-        {
-          id: 101,
-          foodTitle: "Finger Food",
-          img: `/customer/categoryItems/Cranberry-pie.png`,
-          price: " $12.99",
-          overview:
-            "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
-        },
-      ],
-    },
-    {
-      id: 2,
-      categoryName: "Salads",
-      foodCategoriesItems: [
-        {
-          id: 102,
-          foodTitle: "Sunshine Stackers",
-          img: `/customer/categoryItems/sunshine-stacker.png`,
-          price: " $13.99",
-          overview:
-            "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
-        },
-        {
-          id: 103,
-          foodTitle: " Brie Bites",
-          img: `/customer/categoryItems/Finger-Food.png`,
-          price: " $12.99",
-          overview:
-            "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
-        },
-        {
-          id: 104,
-          foodTitle: " Bites",
-          img: `/customer/categoryItems/Finger-Food.png`,
-          price: " $12.99",
-          overview:
-            "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
-        },
-      ],
-    },
-    {
-      id: 3,
-      categoryName: "Lunch Favorites",
-      foodCategoriesItems: [
-        {
-          id: 105,
-          foodTitle: "Sunshine Stackers",
-          img: `/customer/categoryItems/sunshine-stacker.png`,
-          price: " $12.99",
-          overview:
-            "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
-        },
-      ],
-    },
-  ];
-
-  return (
-    <div className="flex flex-cols-3 bg-gray-500">
-      <div className="p-[50px]">
-        {foodCategories.map((category) => (
-          <div key={category.id}>
-            <h1 className="text-white text-[30px] my-[30px]">
-              {category.categoryName}
-            </h1>
-            <CategoryItem foodCategory={category} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  const fetchFoodsFromFrontEnd = async () => {
+    const response = await fetch(`${BASE_URL}/foods`, {
+      headers: { "Content-Type": "application/json" },
+    });
+    const foods = await response.json();
+    console.log(foods);
+  };
+  fetchFoodsFromFrontEnd();
+  return <div className="flex flex-cols-3 bg-gray-500"></div>;
 }
 
 export default MenuContainer;

@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Information from "./customer/components/loginInfo/Information";
 import HomePage from "./customer/components/homePage/HomePage";
+import BASE_URL from "@/constants";
+
 export default function Home() {
   const [isLogin, setIsLogin] = useState(false);
-  console.log("CLicked" + isLogin);
   return (
     <>
       <div>

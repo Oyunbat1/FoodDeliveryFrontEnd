@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import EmailSection from "./email/page";
+import EmailSection from "./email/EmailSection";
 import Password from "./password/Password";
 import InfoType from "@/app/customer/types/index";
 import Login from "./login/Login";

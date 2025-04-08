@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { FacebookIcon, InstagramIcon } from "lucide-react";
