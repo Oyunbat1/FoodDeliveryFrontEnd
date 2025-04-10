@@ -3,19 +3,20 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Plus, X, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FoodCategory } from "@/app/customer/types/foodCategoriesItems";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { FoodItem } from "@/app/customer/types/foodCategoriesItems";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-type CategoryItemProps = {
-  foodCategory: FoodCategory;
+
+type Props = {
+  foodCategory: FoodItem[];
 };
 
-function CategoryItem({ foodCategory }: CategoryItemProps) {
+function CategoryItem({ foodCategory }: Props) {
   const [count, setCount] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [price, setPrice] = useState(0);
@@ -26,8 +27,7 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
     setPrice(0);
   };
   const HandleCountPlus = (el: any) => {
-    console.log(el);
-    const price = el.replace("$", "").trim();
+    const price = String(el).replace("$", "").trim();
     const priceNumber = parseFloat(price);
     const newCount = count + 1;
     setCount(newCount);
@@ -36,7 +36,7 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
 
   const HandleCountMinus = (el: any) => {
     if (count > 1) {
-      const price = el.replace("$", "").trim();
+      const price = String(el).replace("$", "").trim();
       const priceNumber = parseFloat(price);
       const newCount = count - 1;
       setCount(newCount);
@@ -47,18 +47,18 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
   return (
     <div>
       <div className="grid grid-cols-3 gap-20 w-full ">
-        {foodCategory.foodCategoriesItems.map((categoryItem) => (
+        {foodCategory.foods.map((categoryItem) => (
           <div
-            key={categoryItem.id}
+            key={categoryItem._id}
             className="flex flex-col w-[397.33px] h-[352px] bg-white rounded-md items-center pt-4 relative"
           >
-            <Image
+            {/* <Image
               src={`${categoryItem.img}`}
               alt="images"
               width={365.33}
               height={210}
               className="w-[365.33px] h-[230px] rounded-md object-cover"
-            />
+            /> */}
             <Dialog
               open={isOpen}
               onOpenChange={(open) => {
@@ -81,21 +81,21 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
                   <DialogTitle>
                     <VisuallyHidden>Dialog Title</VisuallyHidden>
                   </DialogTitle>
-                  <Image
+                  {/* <Image
                     src={`${categoryItem.img}`}
                     alt="images"
                     width={365.33}
                     height={210}
                     className="w-[365.33px] h-[210px] rounded-md object-cover"
-                  />
+                  /> */}
                 </div>
                 <div className=" flex flex-col justify-between">
                   <div className="mt-[10px]">
                     <h1 className="text-[20px] font-[600] text-red-600">
-                      {categoryItem.foodTitle}
+                      {categoryItem.foodName}
                     </h1>
                     <p className="text-[12px] font-[400]">
-                      {categoryItem.overview}
+                      {categoryItem.ingredients}
                     </p>
                   </div>
                   <div className="flex flex-col gap-2 text-black">
@@ -131,13 +131,13 @@ function CategoryItem({ foodCategory }: CategoryItemProps) {
             </Dialog>
             <div className="flex justify-between items-center w-full px-4 mt-4">
               <h1 className="text-red-600 text-[24px] font-[600]">
-                {categoryItem.foodTitle}
+                {categoryItem.foodName}
               </h1>
-              <p className="text-[18px] font-[600]">{categoryItem.price}</p>
+              <p className="text-[18px] font-[600]">${categoryItem.price}</p>
             </div>
             <div className="flex">
               <p className="text-[14px] font-[400] px-4 ">
-                {categoryItem.overview}
+                {categoryItem.ingredients}
               </p>
             </div>
           </div>

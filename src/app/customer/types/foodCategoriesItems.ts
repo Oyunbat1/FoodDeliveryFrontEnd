@@ -1,15 +1,13 @@
-
 export type FoodItem = {
-  id: number;
-  foodTitle: string;
+  _id: number;
+  foodName: string;
   img: string;
   price: string;
-  overview: string;
+  ingredients: [];
 };
 
-
 export type FoodCategory = {
-  id: number;
+  _id: number;
   categoryName: string;
-  foodCategoriesItems: FoodItem[]; 
+  foodCategoriesItems: FoodItem[];
 };
