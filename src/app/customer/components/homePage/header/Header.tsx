@@ -81,7 +81,7 @@ function Header() {
             >
               <div className="border border-white flex items-center rounded-full px-4 cursor-pointer">
                 <MapPinHouse className="text-red-600" />
-                <label className="text-red-600 pl-2">Delivery address:</label>
+                <div className="text-red-600 pl-2">Delivery address:</div>
                 <Input
                   className="w-[110px] h-[36px] text-white outline-0 border-0 focus-visible:ring-0 placeholder:text-gray-400"
                   placeholder="Add Location"
@@ -94,10 +94,7 @@ function Header() {
                 <DialogTitle>Delivery Address</DialogTitle>
                 <DialogDescription className="mt-8">
                   <div className="w-[432px] h-[112px] border hover:border-gray-400">
-                    <textarea
-                      className="w-full h-full resize-none p-2 outline-none focus-visible:ring-0"
-                      placeholder="Enter your text here..."
-                    ></textarea>
+                    <div className="w-full h-full resize-none p-2 outline-none focus-visible:ring-0"></div>
                   </div>
                 </DialogDescription>
               </DialogHeader>
