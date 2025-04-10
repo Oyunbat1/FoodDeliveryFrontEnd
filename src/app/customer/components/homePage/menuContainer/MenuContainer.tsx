@@ -31,7 +31,7 @@ function MenuContainer() {
   }, []);
 
   return (
-    <div className="flx flex-cols-3 bg-gray-500">
+    <div className="flx flex-cols-3px-8">
       <div className="p-[50px]">
         {categories.map((category) => (
           <div key={category._id}>
