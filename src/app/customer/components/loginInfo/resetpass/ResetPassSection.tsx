@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import InfoType from "@/app/customer/types/index";
 import { Button } from "@/components/ui/button";
@@ -29,7 +30,7 @@ const ResetPass: React.FC<ResetSectionProps> = ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
-  };  
+  };
 
   const Handle = (event: React.FormEvent) => {
     event.preventDefault();
