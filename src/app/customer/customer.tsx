@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import Header from "./header/Header";
-import Category from "./category/category";
+import Header from "./components/homePage/header/Header";
+import Category from "./components/homePage/category/Category";
 import MenuContainer from "@/app/customer/components/homePage/menuContainer/MenuContainer";
-import Footer from "./footer/Footer";
+import Footer from "./components/homePage/footer/Footer";
 import Image from "next/image";
-function HomePage() {
+function Customer() {
   return (
     <div className="bg-gray-500 ">
       <Header></Header>
@@ -23,4 +23,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Customer;

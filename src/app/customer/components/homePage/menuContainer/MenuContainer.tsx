@@ -7,14 +7,10 @@ import BASE_URL from "@/constants";
 import { useState } from "react";
 
 function MenuContainer() {
-  const [foods, setFoods] = useState<FoodItem[]>([]);
   const [categories, setCategories] = useState<FoodCategory[]>([]);
   console.log(categories);
   useEffect(() => {
     const fetchFoodsFromFrontEnd = async () => {
-      const response = await fetch(`${BASE_URL}/foods`, {
-        headers: { "Content-Type": "application/json" },
-      });
       const categoryResponse = await fetch(
         `${BASE_URL}/categories/with-foods`,
         {
@@ -22,8 +18,6 @@ function MenuContainer() {
         }
       );
       const categories = await categoryResponse.json();
-      const foods = await response.json();
-      setFoods(foods);
       setCategories(categories.categories);
     };
 

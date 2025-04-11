@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent } from "react";
+import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import CardFoodItem from "../menuContainer/category/CardFoodItem";
@@ -13,7 +13,6 @@ import {
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
