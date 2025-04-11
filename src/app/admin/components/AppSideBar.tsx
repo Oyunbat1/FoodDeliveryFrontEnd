@@ -15,9 +15,7 @@ import {
 
 type AppSidebarProps = {
   onNavigate: (page: string) => void;
-  isActiveBtnColor: boolean;
-  setActiveBtnColor: React.Dispatch<React.SetStateAction<boolean>>;
-  activePage: string; // ✅ Add this line
+  activePage: string;
 };
 
 const items = [

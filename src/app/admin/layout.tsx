@@ -4,7 +4,7 @@ import { AppSidebar } from "./components/AppSideBar";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <AppSidebar onNavigate={() => {}} />
+      <AppSidebar onNavigate={() => {}} activePage="FoodMenu" />
       <main>
         <SidebarTrigger />
         {children}
