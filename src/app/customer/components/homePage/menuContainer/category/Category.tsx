@@ -20,7 +20,7 @@ function CategoryItem({ foodCategory }: Props) {
   const [count, setCount] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [price, setPrice] = useState(0);
-
+  console.log("aaaaaaaaaaaaaaaaaa" + foodCategory);
   const clearFunction = () => {
     const zero = 1;
     setCount(zero);
@@ -47,7 +47,7 @@ function CategoryItem({ foodCategory }: Props) {
   return (
     <div>
       <div className="grid grid-cols-3 gap-20 w-full ">
-        {foodCategory.foods.map((categoryItem) => (
+        {foodCategory.map((categoryItem) => (
           <div
             key={categoryItem._id}
             className="flex flex-col w-[397.33px] h-[352px] bg-white rounded-md items-center pt-4 relative"

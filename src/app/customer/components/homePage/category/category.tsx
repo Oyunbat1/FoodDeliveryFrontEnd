@@ -2,7 +2,7 @@
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
-import { FoodCategory } from "@/app/customer/types/foodCategoriesItems";
+import { FoodItem } from "@/app/customer/types/foodCategoriesItems";
 import {
   Carousel,
   CarouselContent,
@@ -14,8 +14,8 @@ import BASE_URL from "@/constants";
 import { useState, useEffect } from "react";
 
 function Category() {
-  const [category, setCategories] = useState<FoodCategory[]>([]);
-  console.log(category);
+  const [category, setCategories] = useState<FoodItem[]>([]);
+
   const plugin = React.useRef(
     Autoplay({ delay: 1400, stopOnInteraction: true })
   );

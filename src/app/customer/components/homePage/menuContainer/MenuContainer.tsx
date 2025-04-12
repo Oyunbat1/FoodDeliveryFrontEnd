@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
 import CategoryItem from "./category/Category";
-import { FoodCategory } from "@/app/customer/types/foodCategoriesItems";
+
 import { FoodItem } from "@/app/customer/types/foodCategoriesItems";
 import BASE_URL from "@/constants";
 import { useState } from "react";
 
 function MenuContainer() {
-  const [categories, setCategories] = useState<FoodCategory[]>([]);
+  const [categories, setCategories] = useState<FoodItem[]>([]);
   console.log(categories);
   useEffect(() => {
     const fetchFoodsFromFrontEnd = async () => {
@@ -32,7 +32,7 @@ function MenuContainer() {
             <h1 className="text-white text-[30px] my-[30px]">
               {category.categoryName}
             </h1>
-            <CategoryItem foodCategory={category} />
+            <CategoryItem foodCategory={category.foods} />
           </div>
         ))}
       </div>

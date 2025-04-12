@@ -22,10 +22,10 @@ function Admin() {
   };
   return (
     <div>
-      <SidebarProvider>
+      <SidebarProvider className="w-[320px] ">
         <div className="flex">
           <AppSidebar onNavigate={setActivePage} activePage={activePage} />
-          <main className="ml-64 p-6 w-full">{renderPage()}</main>
+          <main className="w-full">{renderPage()}</main>
         </div>
       </SidebarProvider>
     </div>

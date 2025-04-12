@@ -40,7 +40,7 @@ export function AppSidebar({ onNavigate, activePage }: AppSidebarProps) {
   return (
     <Sidebar>
       <SidebarContent>
-        <SidebarGroup className="bg-amber-300 flex flex-col items-center">
+        <SidebarGroup className="flex flex-col items-center">
           <SidebarGroupLabel className="mt-[20px]">
             <div className="flex gap-2 items-center">
               <Image
@@ -51,10 +51,10 @@ export function AppSidebar({ onNavigate, activePage }: AppSidebarProps) {
                 className="h-[37.29px] w-[46px]"
               />
               <div className="text-white">
-                <h1 className="text-[20px] font-[600]">
-                  Nom <span className="text-red-600">Nom</span>
-                </h1>
-                <p className="text-[12px] font-[400]">Swift delivery</p>
+                <h1 className="text-[20px] font-[600] text-black">Nom Nom</h1>
+                <p className="text-[12px] font-[400] text-gray-400">
+                  Swift delivery
+                </p>
               </div>
             </div>
           </SidebarGroupLabel>
@@ -63,11 +63,11 @@ export function AppSidebar({ onNavigate, activePage }: AppSidebarProps) {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title} className="py-2">
                   <SidebarMenuButton
-                    className={`w-[165px] h-[40px] rounded-full pl-6 flex items-center gap-2
+                    className={`w-[165px] h-[40px] rounded-full pl-6 flex items-center gap-2 
                     ${
                       activePage === item.title
-                        ? "bg-black text-white"
-                        : "bg-white text-black"
+                        ? "bg-black text-white   transition duration-600"
+                        : "hover:bg-black hover:text-white  text-black  transition duration-600"
                     }`}
                     onClick={() => onNavigate(item.title)}
                   >
