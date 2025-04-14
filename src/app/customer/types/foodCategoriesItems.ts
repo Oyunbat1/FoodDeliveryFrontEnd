@@ -3,7 +3,10 @@ export type FoodItem = {
   foodName: string;
   img: string;
   price: string;
-  ingredients: [];
+  ingredients: {
+    id: string;
+    name: string;
+  }[];
   categoryName: string;
   foodCategoriesItems: FoodItem[];
   foods: FoodItem[];

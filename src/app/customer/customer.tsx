@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Header from "./components/homePage/header/Header";
-import Category from "./components/homePage/category/Category";
+import Category from "./components/homePage/category/category";
 import MenuContainer from "@/app/customer/components/homePage/menuContainer/MenuContainer";
 import Footer from "./components/homePage/footer/Footer";
 import Image from "next/image";

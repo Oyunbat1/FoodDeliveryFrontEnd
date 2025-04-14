@@ -7,6 +7,7 @@ import { FoodItem } from "@/app/customer/types/foodCategoriesItems";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
 import {
   Dialog,
   DialogContent,
@@ -15,15 +16,13 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import Category from "@/app/customer/components/homePage/category/Category";
 
 function FoodMenu() {
   const [categories, setCategories] = useState<FoodItem[]>([]);
+  console.log(categories);
   const [catergoy, setCatergoy] = useState(" ");
   const [successMessage, setSuccessMessage] = useState("");
-  const [username, setUsername] = useState("");
   const [open, setOpen] = useState(false);
-  // const [value, setValue] = React.useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -35,7 +34,6 @@ function FoodMenu() {
         console.error("Error fetching categories:", err);
       }
     };
-
     fetchCategories();
   }, []);
 
@@ -153,7 +151,7 @@ function FoodMenu() {
                     {category.foods.length}
                   </div>
                 </div>
-                <div className="mt-[10px]">
+                <div className="mt-[10px] flex gap-2.5">
                   {" "}
                   <div className="w-[270.75px] h-[241px] rounded-[20px] border-[1px] flex flex-col items-center justify-center  gap-2 text-center">
                     <div className="border rounded-full p-1 bg-red-600 ">
@@ -164,6 +162,38 @@ function FoodMenu() {
                       Add new Dish to {category.categoryName}
                     </p>
                   </div>
+                  {category.foods.map((food) => (
+                    <div
+                      key={food._id}
+                      className="flex flex-col w-[270.75px] h-[241px] bg-white  rounded-[20px] border-[1px] items-center pt-4 relative justify-around"
+                    >
+                      <div>aa</div>
+                      {/* <Image
+                                src={`${categoryItem.img}`}
+                                alt="images"
+                                width={365.33}
+                                height={210}
+                                className="w-[365.33px] h-[230px] rounded-md object-cover"
+                              /> */}
+                      <div className="flex flex-col gap-2">
+                        <div className="flex justify-between items-center w-[240px] mt-4 ">
+                          <h1 className="text-red-600 text-[14px] font-[600]">
+                            {food.foodName}
+                          </h1>
+                          <p className="text-[12px] font-[600]">
+                            ${food.price}
+                          </p>
+                        </div>
+                        <div className="flex gap-2">
+                          <div className="text-[12px] font-[400] flex gap-2 ">
+                            {food.ingredients.map((ingries) => (
+                              <div key={ingries.id}>{ingries.name}</div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
