@@ -94,9 +94,11 @@ function CategoryItem({ foodCategory }: Props) {
                     <h1 className="text-[20px] font-[600] text-red-600">
                       {categoryItem.foodName}
                     </h1>
-                    <p className="text-[12px] font-[400]">
-                      {categoryItem.ingredients}
-                    </p>
+                    <div className="text-[12px] font-[400]">
+                      {categoryItem.ingredients.map((el) => (
+                        <div key={el.id}>{el.name}</div>
+                      ))}
+                    </div>
                   </div>
                   <div className="flex flex-col gap-2 text-black">
                     <div className="flex justify-between">
@@ -136,9 +138,11 @@ function CategoryItem({ foodCategory }: Props) {
               <p className="text-[18px] font-[600]">${categoryItem.price}</p>
             </div>
             <div className="flex">
-              <p className="text-[14px] font-[400] px-4 ">
-                {categoryItem.ingredients}
-              </p>
+              <div className="text-[14px] font-[400] px-4 flex gap-2">
+                {categoryItem.ingredients.map((el) => (
+                  <div key={el.id}>{el.name}</div>
+                ))}
+              </div>
             </div>
           </div>
         ))}

@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 import Header from "./components/homePage/header/Header";
-import Category from "./components/homePage/category/category";
+import Category from "./components/homePage/category/Category";
 import MenuContainer from "@/app/customer/components/homePage/menuContainer/MenuContainer";
 import Footer from "./components/homePage/footer/Footer";
 import Image from "next/image";
 function Customer() {
   return (
     <div className="bg-gray-500 ">
-      <Header></Header>
+      <Header />
       <Image
         src={`/customer/section-1.png`}
         alt="section-1"
