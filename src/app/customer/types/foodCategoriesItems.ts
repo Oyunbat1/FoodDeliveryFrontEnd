@@ -7,6 +7,7 @@ export type FoodItem = {
     id: string;
     name: string;
   }[];
+  imageUrl: string;
   categoryName: string;
   foodCategoriesItems: FoodItem[];
   foods: FoodItem[];

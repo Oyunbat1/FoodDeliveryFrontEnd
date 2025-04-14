@@ -52,13 +52,13 @@ function CategoryItem({ foodCategory }: Props) {
             key={categoryItem._id}
             className="flex flex-col w-[397.33px] h-[352px] bg-white rounded-md items-center pt-4 relative"
           >
-            {/* <Image
-              src={`${categoryItem.img}`}
-              alt="images"
+            <Image
+              src={`${categoryItem.imageUrl}`}
+              alt={`${categoryItem.foodName} image`}
               width={365.33}
               height={210}
               className="w-[365.33px] h-[230px] rounded-md object-cover"
-            /> */}
+            />
             <Dialog
               open={isOpen}
               onOpenChange={(open) => {
@@ -82,7 +82,7 @@ function CategoryItem({ foodCategory }: Props) {
                     <VisuallyHidden>Dialog Title</VisuallyHidden>
                   </DialogTitle>
                   {/* <Image
-                    src={`${categoryItem.img}`}
+                    src={`${categoryItem.imageUrl}`}
                     alt="images"
                     width={365.33}
                     height={210}

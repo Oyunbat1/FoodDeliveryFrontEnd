@@ -1,13 +1,12 @@
 "use client";
-import { Plus, Check, ChevronsUpDown } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Plus, Check, ChevronsUpDown, Image } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import * as React from "react";
 import BASE_URL from "@/constants";
 import { FoodItem } from "@/app/customer/types/foodCategoriesItems";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 import {
   Dialog,
   DialogContent,
@@ -28,6 +27,62 @@ function FoodMenu() {
   const [price, setPrice] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  const imageRef = useRef<HTMLInputElement | null>(null);
+  const [url, setUrl] = useState("");
+  const CLOUD_NAME = "dbtl9obi3";
+  const NEXT_PUBLIC_UPLOAD_PRESET = "ml_default";
+
+  const uploadToCloudinary = async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", NEXT_PUBLIC_UPLOAD_PRESET);
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await response.json();
+      if (data.secure_url) {
+        return data.secure_url;
+      } else {
+        throw new Error("Upload failed");
+      }
+    } catch (error) {
+      console.error("Error during Cloudinary upload:", error);
+      throw error;
+    }
+  };
+
+  interface FileInputEvent extends React.ChangeEvent<HTMLInputElement> {
+    target: HTMLInputElement & {
+      files: FileList;
+    };
+  }
+
+  const OnChange = async (event: FileInputEvent) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      setUrl(URL.createObjectURL(file));
+      try {
+        const uploadedUrl = await uploadToCloudinary(file);
+        console.log(`cloud url ${uploadedUrl}`);
+        setUrl(uploadedUrl);
+      } catch (error) {
+        console.error("Error uploading the image:", error);
+      }
+    }
+  };
+
+  const uploadImage = () => {
+    if (imageRef.current) {
+      imageRef.current.click();
+    }
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -68,7 +123,14 @@ function FoodMenu() {
   };
 
   const handleAddFoodItem = async () => {
-    if (!foodName || !price || !ingredients || !selectedCategoryId) return;
+    if (
+      !foodName ||
+      !price ||
+      !ingredients ||
+      !selectedCategoryId ||
+      !url.startsWith("https://")
+    )
+      return;
     const ingredientsArray = ingredients.split(",").map((name, index) => ({
       id: index + 1,
       name: name.trim(),
@@ -82,6 +144,7 @@ function FoodMenu() {
           price: parseFloat(price),
           ingredients: ingredientsArray,
           categoryId: selectedCategoryId,
+          imageUrl: url,
         }),
       });
       if (!response.ok) {
@@ -91,6 +154,7 @@ function FoodMenu() {
       setFoodName("");
       setPrice("");
       setIngredients("");
+      setUrl("");
       setOpenFoodItem(false);
       setSuccessMessageFoodItem("New food is being added to the menu");
       setTimeout(() => setSuccessMessageFoodItem(""), 2000);
@@ -266,6 +330,38 @@ function FoodMenu() {
                                   className="col-span-3 border focus-visible:ring-0"
                                 />
                               </div>
+                              <div className="flex flex-col">
+                                <label className="text-black text-[14px] font-[600]">
+                                  Food image
+                                </label>
+                                {url ? (
+                                  <img
+                                    className="mt-[10px] h-[138px] w-full rounded-md object-cover"
+                                    src={url}
+                                    alt="Profile Preview"
+                                  />
+                                ) : (
+                                  <div
+                                    onClick={uploadImage}
+                                    className=" bg-slate-200 h-[132px] w-full rounded-md flex flex-col gap-1 justify-center items-center cursor-pointer"
+                                  >
+                                    <div className=" rounded-full border-[1px]  h-[32px] w-[32px] bg-white flex justify-center items-center">
+                                      <Image className="w-[12[px] h-[12px]" />
+                                    </div>
+                                    <div className="text-[14px] font-[500]">
+                                      {" "}
+                                      Choose a file or drag & drop it here
+                                    </div>
+                                  </div>
+                                )}
+                                <input
+                                  type="file"
+                                  ref={imageRef}
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={OnChange}
+                                />
+                              </div>
                             </div>
                           </div>
                           <DialogFooter>
@@ -283,18 +379,17 @@ function FoodMenu() {
                     {category.foods.map((food) => (
                       <div
                         key={food._id}
-                        className="flex flex-col w-[270.75px] h-[241px] bg-white  rounded-[20px] border-[1px] items-center pt-4 relative justify-around"
+                        className="flex flex-col w-[270.75px] h-[241px] bg-white  rounded-[20px] border-[1px] items-center  relative justify-around"
                       >
-                        <div>aa</div>
-                        {/* <Image
-                          src={`${categoryItem.img}`}
+                        <img
+                          src={`${food.imageUrl}`}
                           alt="images"
-                          width={365.33}
-                          height={210}
-                          className="w-[365.33px] h-[230px] rounded-md object-cover"
-                        /> */}
+                          width={265.33}
+                          height={129}
+                          className="w-[238.75px] h-[129px] rounded-md object-cover"
+                        />
                         <div className="flex flex-col gap-2">
-                          <div className="flex justify-between items-center w-[240px] mt-4 ">
+                          <div className="flex justify-between items-center w-[240px]  ">
                             <h1 className="text-red-600 text-[14px] font-[600]">
                               {food.foodName}
                             </h1>
