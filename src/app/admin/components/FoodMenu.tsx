@@ -7,19 +7,7 @@ import { FoodItem } from "@/app/customer/types/foodCategoriesItems";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
 import {
   Dialog,
   DialogContent,
@@ -81,62 +69,6 @@ function FoodMenu() {
       files: FileList;
     };
   }
-  const handleUpdateFood = async () => {
-    if (!editingFood) return;
-
-    const ingredientsArray = editIngredients.split(",").map((name, index) => ({
-      id: index + 1,
-      name: name.trim(),
-    }));
-
-    try {
-      const response = await fetch(`${BASE_URL}/foods/${editingFood._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          foodName: editFoodName,
-          catergoy: editCategory,
-          price: parseFloat(editPrice),
-          ingredients: ingredientsArray,
-          imageUrl: editImageUrl,
-        }),
-      });
-
-      if (!response.ok) throw new Error("Failed to update food");
-
-      const updatedResponse = await fetch(`${BASE_URL}/categories/with-foods`);
-      const updatedData = await updatedResponse.json();
-      setCategories(updatedData.categories);
-
-      setEditingFood(null);
-      setSuccessMessageFoodItem("Food item updated successfully");
-      setTimeout(() => setSuccessMessageFoodItem(""), 2000);
-    } catch (err) {
-      console.error("Error updating food:", err);
-    }
-  };
-
-  const handleDeleteFood = async () => {
-    if (!editingFood) return;
-
-    try {
-      const response = await fetch(`${BASE_URL}/foods/${editingFood._id}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) throw new Error("Failed to delete food");
-
-      const updatedResponse = await fetch(`${BASE_URL}/categories/with-foods`);
-      const updatedData = await updatedResponse.json();
-      setCategories(updatedData.categories);
-
-      setEditingFood(null);
-      setSuccessMessageFoodItem("Food item deleted successfully");
-      setTimeout(() => setSuccessMessageFoodItem(""), 2000);
-    } catch (err) {
-      console.error("Error deleting food:", err);
-    }
-  };
 
   const OnChange = async (event: FileInputEvent) => {
     if (event.target.files && event.target.files[0]) {
@@ -171,6 +103,26 @@ function FoodMenu() {
     };
     fetchCategories();
   }, []);
+
+  const HandleDeleteFood = async () => {
+    if (!editingFood) return;
+
+    try {
+      const response = await fetch(`${BASE_URL}/foods/${editingFood._id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete food");
+      const updatedResponse = await fetch(`${BASE_URL}/categories/with-foods`);
+      const updatedData = await updatedResponse.json();
+      setCategories(updatedData.categories);
+
+      setEditingFood(null);
+      setSuccessMessageFoodItem("Food item deleted successfully");
+      setTimeout(() => setSuccessMessageFoodItem(""), 2000);
+    } catch (err) {
+      console.error("Error deleting food:", err);
+    }
+  };
 
   const handleAddCategory = async () => {
     if (!catergoy.trim()) return;
@@ -501,22 +453,7 @@ function FoodMenu() {
                                     }
                                   />
                                 </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                  <Label
-                                    htmlFor="catergory"
-                                    className="text-right w-[30px] text-[12px]"
-                                  >
-                                    Dish category
-                                  </Label>
-                                  <Input
-                                    id="category"
-                                    value={editCategory}
-                                    className="col-span-3 focus-visible:ring-0"
-                                    onChange={(el) =>
-                                      setEditCategory(el.target.value)
-                                    }
-                                  />
-                                </div>
+
                                 <div className="grid grid-cols-4 items-center gap-4">
                                   <Label
                                     htmlFor="ingridients"
@@ -586,18 +523,13 @@ function FoodMenu() {
                                 <div className="flex justify-between w-full">
                                   {" "}
                                   <Button
+                                    onClick={HandleDeleteFood}
                                     type="submit"
                                     className="border-[1px] border-red-600 bg-transparent hover:bg-red-200"
-                                    onClick={handleDeleteFood}
                                   >
                                     <Trash className="text-red-600"></Trash>
                                   </Button>
-                                  <Button
-                                    onClick={handleUpdateFood}
-                                    type="submit"
-                                  >
-                                    Save changes
-                                  </Button>
+                                  <Button type="submit">Save changes</Button>
                                 </div>
                               </DialogFooter>
                             </DialogContent>
