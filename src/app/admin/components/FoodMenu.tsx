@@ -22,8 +22,8 @@ function FoodMenu() {
   const [catergoy, setCatergoy] = useState(" ");
   const [successMessage, setSuccessMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [openEditFoodItem, setOpenEditFoodItem] = useState(false);
   const [openFoodItem, setOpenFoodItem] = useState(false);
-  const [openEditCatigory, setOpenEditCategory] = useState(false);
   const [successMessageFoodItem, setSuccessMessageFoodItem] = useState("");
   const [foodName, setFoodName] = useState("");
   const [price, setPrice] = useState("");
@@ -31,7 +31,6 @@ function FoodMenu() {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [editingFood, setEditingFood] = useState<FoodItem | null>(null);
   const [editFoodName, setEditFoodName] = useState("");
-  const [editCategory, setEditCategory] = useState("");
   const [editPrice, setEditPrice] = useState("");
   const [editIngredients, setEditIngredients] = useState("");
   const [editImageUrl, setEditImageUrl] = useState("");
@@ -115,12 +114,53 @@ function FoodMenu() {
       const updatedResponse = await fetch(`${BASE_URL}/categories/with-foods`);
       const updatedData = await updatedResponse.json();
       setCategories(updatedData.categories);
-
+      setOpenEditFoodItem(false);
       setEditingFood(null);
       setSuccessMessageFoodItem("Food item deleted successfully");
       setTimeout(() => setSuccessMessageFoodItem(""), 2000);
     } catch (err) {
       console.error("Error deleting food:", err);
+    }
+  };
+  const handleUpdateFood = async () => {
+    console.log("clicked success");
+    if (!editFoodName || !editPrice || !editIngredients || !editImageUrl)
+      return;
+
+    const ingredientsArray = editIngredients.split(",").map((name, index) => ({
+      id: index + 1,
+      name: name.trim(),
+    }));
+
+    try {
+      const response = await fetch(`${BASE_URL}/foods/${editingFood?._id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          foodName: editFoodName,
+          price: editPrice,
+          ingredients: ingredientsArray,
+          imageUrl: editImageUrl,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Update failed:", errorData);
+        throw new Error(errorData.message || "Failed to update food");
+      }
+
+      const updatedResponse = await fetch(`${BASE_URL}/categories/with-foods`);
+      const updatedData = await updatedResponse.json();
+      setCategories(updatedData.categories);
+      setOpenEditFoodItem(false);
+      setEditingFood(null);
+      setSuccessMessageFoodItem("Food item updated successfully");
+      setTimeout(() => setSuccessMessageFoodItem(""), 2000);
+    } catch (err) {
+      console.error("Error updating food:", err);
+      setSuccessMessageFoodItem("Failed to update food item");
+      setTimeout(() => setSuccessMessageFoodItem(""), 2000);
     }
   };
 
@@ -410,7 +450,10 @@ function FoodMenu() {
                       >
                         <div className="absolute right-14 top-[90px]">
                           {" "}
-                          <Dialog>
+                          <Dialog
+                            open={openEditFoodItem}
+                            onOpenChange={setOpenEditFoodItem}
+                          >
                             <DialogTrigger asChild>
                               <Button
                                 variant="outline"
@@ -418,7 +461,6 @@ function FoodMenu() {
                                 onClick={() => {
                                   setEditingFood(food);
                                   setEditFoodName(food.foodName);
-                                  setEditCategory(food.categoryName);
                                   setEditPrice(food.price.toString());
                                   setEditIngredients(
                                     food.ingredients
@@ -454,7 +496,7 @@ function FoodMenu() {
                                   />
                                 </div>
 
-                                <div className="grid grid-cols-4 items-center gap-4">
+                                <div className="grid grid-cols-4 items-center gap-4 ">
                                   <Label
                                     htmlFor="ingridients"
                                     className="text-right text-[12px]"
@@ -529,7 +571,12 @@ function FoodMenu() {
                                   >
                                     <Trash className="text-red-600"></Trash>
                                   </Button>
-                                  <Button type="submit">Save changes</Button>
+                                  <Button
+                                    onClick={handleUpdateFood}
+                                    type="submit"
+                                  >
+                                    Save changes
+                                  </Button>
                                 </div>
                               </DialogFooter>
                             </DialogContent>
@@ -551,11 +598,9 @@ function FoodMenu() {
                               ${food.price}
                             </p>
                           </div>
-                          <div className="flex gap-2">
-                            <div className="text-[12px] font-[400] flex gap-2 ">
-                              {food.ingredients.map((ingries) => (
-                                <div key={ingries.id}>{ingries.name}</div>
-                              ))}
+                          <div className="flex ">
+                            <div className="text-[10px] font-[400] flex   w-[238.75px] h-[32px]">
+                              {food.ingredients.map((e) => e.name)}
                             </div>
                           </div>
                         </div>
