@@ -8,6 +8,7 @@ import { useState } from "react";
 
 function MenuContainer() {
   const [categories, setCategories] = useState<FoodItem[]>([]);
+
   useEffect(() => {
     const fetchFoodsFromFrontEnd = async () => {
       const categoryResponse = await fetch(
