@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import FoodMenu from "./components/FoodMenu";
 import OrderInfo from "./components/OrderInfo";

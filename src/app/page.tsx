@@ -1,6 +1,6 @@
 "use client";
-import Admin from "./admin/admin";
-import Customer from "./customer/customer";
+import Admin from "./admin/page";
+import Customer from "./customer/page";
 import Info from "./loginInfo/Information";
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
       <div>
         {/* <Admin /> */}
         {/* <Customer /> */}
-        <Info setIsLogin={() => {}} />
+        <Info />
       </div>
     </>
   );

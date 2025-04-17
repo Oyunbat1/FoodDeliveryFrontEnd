@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronLeft } from "lucide-react";
 import InfoType from "@/app/customer/types/index";
 import { useState } from "react";
+import axios from "axios";
+import BASE_URL from "@/constants";
 interface PasswordSectionProps {
   formValues: InfoType;
   formErrors: InfoType;
@@ -14,6 +16,8 @@ interface PasswordSectionProps {
   nextStep: () => void;
   prevStep: () => void;
   currentStep: number;
+  email: string;
+  role: string;
 }
 
 const Password: React.FC<PasswordSectionProps> = ({
@@ -23,16 +27,29 @@ const Password: React.FC<PasswordSectionProps> = ({
   setFormErrors,
   nextStep,
   prevStep,
-  currentStep,
+  email,
+  role,
 }: PasswordSectionProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
   const OnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
+    setPassword(event.target.value);
+    setConfirmPassword(event.target.value);
   };
-
+  const onSubmit = async () => {
+    const user = await axios.post(`${BASE_URL}/auth/register`, {
+      email,
+      password,
+      role,
+    });
+    console.log(user, "user");
+    console.log("send request");
+  };
   const Handle = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -41,6 +58,7 @@ const Password: React.FC<PasswordSectionProps> = ({
       password: "",
       confirmpassword: "",
       showpassword: false,
+      role: "",
     };
 
     const passwordRegex =
@@ -63,6 +81,7 @@ const Password: React.FC<PasswordSectionProps> = ({
 
     if (errors.password || errors.confirmpassword) return;
     nextStep();
+    onSubmit();
   };
 
   return (

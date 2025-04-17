@@ -6,16 +6,30 @@ import { Input } from "@/components/ui/input";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import BASE_URL from "@/constants";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 
 interface LoginSectionProps {
   formValues: InfoType;
   formErrors: InfoType;
   setFormValues: React.Dispatch<React.SetStateAction<InfoType>>;
   setFormErrors: React.Dispatch<React.SetStateAction<InfoType>>;
-  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
   nextStep: () => void;
   prevStep: () => void;
   currentStep: number;
+  email: string;
+  password: string;
+  role: string;
+}
+
+interface DecodedToken {
+  user: {
+    role: string;
+    [key: string]: any;
+  };
+  [key: string]: any;
 }
 
 const Login: React.FC<LoginSectionProps> = ({
@@ -23,18 +37,40 @@ const Login: React.FC<LoginSectionProps> = ({
   formErrors,
   setFormValues,
   setFormErrors,
-  nextStep,
   prevStep,
-  currentStep,
-  setIsLogin,
+  email,
+  password,
+  role,
 }: LoginSectionProps) => {
+  const router = useRouter();
   const OnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
   };
+  const onSubmit = async () => {
+    const user = await axios.post(`${BASE_URL}/auth/login`, {
+      email,
+      password,
+      role,
+    });
+    const token = user.data?.token;
+    if (!token) return console.error("No token received");
+    localStorage.setItem("token", token);
+    const decoded = jwtDecode<DecodedToken>(token);
+    console.log(user, "user");
 
+    const checkRole = decoded?.user?.role;
+
+    if (checkRole === "ADMIN") {
+      router.push("/admin");
+    } else if (role === "USER") {
+      router.push("/customer");
+    } else {
+      console.warn("Unknown role:", checkRole);
+    }
+  };
   const Handle = (event: React.FormEvent) => {
     event.preventDefault();
     let errors: InfoType = {
@@ -42,6 +78,7 @@ const Login: React.FC<LoginSectionProps> = ({
       password: "",
       confirmpassword: "",
       showpassword: false,
+      role: "",
     };
 
     const emailRegexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,8 +97,7 @@ const Login: React.FC<LoginSectionProps> = ({
     if (errors.password || errors.email) {
       return;
     }
-    setIsLogin(true);
-    nextStep();
+    onSubmit();
   };
 
   return (
@@ -135,7 +171,6 @@ const Login: React.FC<LoginSectionProps> = ({
               <div className="] flex flex-col gap-2">
                 {" "}
                 <Button
-                  onClick={() => setIsLogin(true)}
                   className="transition-all duration-400  bg-gray-300 border text-white hover:bg-black "
                   type="submit"
                 >

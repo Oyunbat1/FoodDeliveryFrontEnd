@@ -1,9 +1,18 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import InfoType from "@/app/customer/types/index";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface EmailSectionProps {
   formValues: InfoType;
@@ -30,12 +39,12 @@ const EmailSection: React.FC<EmailSectionProps> = ({
 
   const Handle = (event: React.FormEvent) => {
     event.preventDefault();
-
     let errors: InfoType = {
       email: "",
       password: "",
       confirmpassword: "",
       showpassword: false,
+      role: "",
     };
 
     const emailRegexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -79,13 +88,25 @@ const EmailSection: React.FC<EmailSectionProps> = ({
                 {formErrors.email}
               </p>
             )}
+            <Select
+              onValueChange={(value) =>
+                setFormValues((prev) => ({ ...prev, role: value }))
+              }
+            >
+              <SelectTrigger className="w-[336px]">
+                <SelectValue placeholder="Select a role" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Role</SelectLabel>
+                  <SelectItem value="ADMIN">ADMIN</SelectItem>
+                  <SelectItem value="USER">USER</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
             <div className="mt-[20px] flex flex-col gap-2">
               {" "}
-              <Button
-                onClick={() => {}}
-                className="transition-all duration-400  bg-gray-300 border text-white hover:bg-black "
-                type="submit"
-              >
+              <Button onClick={() => {}} type="submit">
                 Let's go
               </Button>
               <div className="flex gap-1 justify-center">
