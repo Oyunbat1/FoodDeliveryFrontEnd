@@ -56,10 +56,11 @@ const Login: React.FC<LoginSectionProps> = ({
       role,
     });
     const token = user.data?.token;
+    console.log(token);
     if (!token) return console.error("No token received");
     localStorage.setItem("token", token);
     const decoded = jwtDecode<DecodedToken>(token);
-    console.log(user, "user");
+    console.log(decoded);
 
     const checkRole = decoded?.user?.role;
 
