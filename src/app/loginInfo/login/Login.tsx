@@ -161,7 +161,7 @@ const Login: React.FC<LoginSectionProps> = ({
                     {formErrors.password}
                   </p>
                 )}
-                <Link href="/customer/components/loginInfo/resetpass">
+                <Link href="/loginInfo/resetpass">
                   {" "}
                   <p className="underline text-[14px] text-gray-600 mt-1">
                     Forgot password ?

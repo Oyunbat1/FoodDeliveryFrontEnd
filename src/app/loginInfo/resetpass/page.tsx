@@ -1,71 +1,31 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import InfoType from "@/app/customer/types/index";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
+import BASE_URL from "@/constants";
+import { toast } from "sonner";
+import axios from "axios";
 
-interface ResetSectionProps {
-  formValues: InfoType;
-  formErrors: InfoType;
-  setFormValues: React.Dispatch<React.SetStateAction<InfoType>>;
-  setFormErrors: React.Dispatch<React.SetStateAction<InfoType>>;
-  nextStep: () => void;
-  prevStep: () => void;
-  currentStep: number;
-}
-
-const ResetPass: React.FC<ResetSectionProps> = ({
-  formValues,
-  formErrors,
-  setFormValues,
-  setFormErrors,
-  nextStep,
-  prevStep,
-  currentStep,
-}: ResetSectionProps) => {
-  const OnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValues((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
-  };
-
-  const Handle = (event: React.FormEvent) => {
-    event.preventDefault();
-    let errors: InfoType = {
-      email: "",
-      password: "",
-      confirmpassword: "",
-      showpassword: false,
-    };
-
-    const emailRegexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formValues.email) {
-      errors.email = "Please provide a valid email address.";
-    } else if (!emailRegexPattern.test(formValues.email)) {
-      errors.email = "Please provide a valid email address.";
-    }
-
-    setFormErrors(errors);
-
-    if (!formValues.email) {
-      return;
-    }
+const ResetPass = () => {
+  const ref = useRef<HTMLInputElement>(null);
+  const resetPassword = async () => {
+    const response = await axios.post(`${BASE_URL}/auth/reset-password`, {
+      userEmail: ref.current?.value || "",
+    });
+    toast("Email successfully sent");
   };
 
   return (
     <>
       <div className="grid grid-cols-[1fr_2fr] h-screen items-center">
         <div className="flex justify-center items-center h-full">
-          <form onSubmit={Handle}>
+          <form>
             <div className="w-[416px] p-[40px] flex flex-col gap-6 relative">
               <div>
-                <Button
-                  className="bg-white border text-black"
-                  onClick={prevStep}
-                >
+                <Button className="bg-white border text-black">
                   <ChevronLeft />
                 </Button>
               </div>
@@ -79,26 +39,17 @@ const ResetPass: React.FC<ResetSectionProps> = ({
               <div>
                 {" "}
                 <Input
+                  ref={ref}
                   type="email"
                   name="email"
-                  className={`${
-                    formErrors?.email
-                      ? "border border-red-600"
-                      : "focus-visible:ring-0 focus-visible:border-blue-600 hover:border-blue-200 hover:transition-all hover:duration-100 "
-                  }`}
+                  className="focus-visible:ring-0 focus-visible:border-blue-600 hover:border-blue-200 hover:transition-all hover:duration-100 "
                   placeholder="Email"
-                  onChange={OnChange}
-                  value={formValues.email}
                 />
-                {formErrors?.email && (
-                  <p className="text-red-600 text-[12px] font-[400] mt-1 ml-1">
-                    {formErrors.email}
-                  </p>
-                )}
               </div>
               <div className="] flex flex-col gap-2">
                 {" "}
                 <Button
+                  onClick={resetPassword}
                   className="transition-all duration-400  bg-gray-300 border text-white hover:bg-black "
                   type="submit"
                 >
